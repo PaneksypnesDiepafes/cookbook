@@ -10,7 +10,7 @@
 
 # Επεξεργασία
 
-### Τρόπος 1
+<!-- ### Τρόπος 1
 
 1. Διαγραφή του περιεχομένου στο αρχείο ` .gitmodules *`
 2.  `git add .`
@@ -37,10 +37,10 @@
 9. `cd ..`
 10. `git add .`
 11. `git commit -m "your-message"`
-12. `git push origin`
+12. `git push origin` -->
 
-### Τρόπος 2
-1. αλλαγή στα link των submodules οπως στο βημα _**Προσθήκη των submodules**_ στο αρχείο .gitmodules
+### Τρόπος
+1. Αλλαγή στα link των submodules οπως στο βημα _**Προσθήκη των submodules**_ στο αρχείο .gitmodules
 2. `git submodule update --remote --init `
 
 3. `git submodule update --remote --merge`
