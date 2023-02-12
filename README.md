@@ -1,5 +1,5 @@
 # CHOKO ΤΣΕΛΕΜΕΝΤΕΣ
-The Holy Grail To Choco Classes
+The Holy Grail To Choko Classes
 
 ## Καλώς ήλθατε στον υπέρτατο οδηγό για τα μαθήματα HCI και SW.
 
@@ -8,4 +8,4 @@ The Holy Grail To Choco Classes
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 Feel free να προτείνετε αλλαγές και διορθώσεις
 
-Made with :heart:  by [Second-Time-Is-The-Charm](https://github.com/Second-Time-Is-The-Charm)
+Made with :heart:  by [Second-Time-Is-The-Charm](https://github.com/Second-Time-Is-The-Charm), [PaneksypnesDiepafes](https://github.com/PaneksypnesDiepafes)
