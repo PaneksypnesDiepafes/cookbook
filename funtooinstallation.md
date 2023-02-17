@@ -28,18 +28,38 @@
 
 ### Disk set up
 1. `lsblk` για να δούμε το layout των δίσκων
-2. `gdisk /dev/sda` και δίνουμε την εντολη `o` για να γίνει διαγραφή του partition
-3. Στη συνέχεια θα δώσουμε την εντολή `n` ώστε να κάνουμε νέο partition με partition number 1
-το οποίο θα ξεκινάει απο την αρχή του sector οπότε στο first sector απλα πατάμε enter και στο
-last sector του δίνουμε την εντολή `+128M` και HEX code `EF00`. 
-‼️: Αυτή η εντολή θα εκτελεσθεί άλλες δύο φορές για να φτιάξουμε το swap partition και το root partition. 
-Δείτε [αυτό](https://www.youtube.com/watch?v=SGtyCXjxR2E&t=1479s) το βίντεο για την ολοκλήρωση του βήματος
-4. `mkfs.vfat -F 32 /dev/sda1`
-5. `mkswap /dev/sda2` *σε περιπτωση που δεν λειτουργήσει με την πρώτη περιμένετε λίγο και ξαναδοκιμάστε*
-6. `mkfs.ext4 /dev/sda3`
+2. `fdisk /dev/sda` και δίνουμε την εντολη `o` για να γίνει διαγραφή του partition
+3.  Ακολουθούμε τα βήματα απο το [official guide](https://www.funtoo.org/Install/MBR_Partitioning) για το partitioning όμως δημιουργούμε 2 μονο partitions αντι για 3. (Το swap partition είναι προαιρετικό)
+4. `mkfs.ext2 /dev/sda1`
+5. `mkfs.ext4 /dev/sda2` (αν έχουμε φτιάξει swap parttion τοτε είναι το /dev/sda3)
+6.  `mkdir -p /mnt/funtoo`
+7.  `mount /dev/sda3 /mnt/funtoo`
+8.  `mkdir /mnt/funtoo/boot`
+9.  `mount /dev/sda1 /mnt/funtoo/boot`
+
+### Date set up
+1. `date` για να δούμε την ημερομηνία του συστήματος 
+#### Σε περίπτωση που δεν είναι σωστή η ώρα του συστήματος
+2. `date MMDDhhmmYYYY` αντικαθιστούμς τις μεταβλητες με νούμερα πχ. `date 021718502023`
+3. `hwclock --systohc` για να ρυθμίσουμε το hardware clock και να μείνει persistent
 
 ### Stage3 download
-1. `curl to-link-tou arxeiou --remote-name`
+1. `cd /mnt/funtoo`
+2. `links http://build.funtoo.org`
+Επιλέγετε τα generic drivers τα οποία βρίσκονται στο `next/x86-64bit/generic_64/` και επιλεγεται όποια έκδοση θέλετε (για δική σας ευκολία επιλέξτε κάτι με γραφικό περιβάλλον)
+### stage3 extract
+1.`tar --numeric-owner --xattrs --xattrs-include='*' -xpf stage3-latest.tar.xz` (stage3=το αρχείο που κατεβάσατε)
+
+### Chroot
+1. `fchroot /mnt/funtoo /bin/bash --login` (οι οδηγίες του funtoo λένε ότι το prompt αλλάζει στη δική μας περίπτωση δεν έγινε κάτι τέτοιο αλλά παρέμεινε και πάλι `livecd`)
+
+### Download Portage Tree
+1. `ego sync`
+
+### Config files
+1. `nano -w /etc/fstab` ακολουθήστε τις [οδηγίες](https://www.funtoo.org/Install/Configuration_Files)
+2. `rm -f /etc/localtime`
+3. `ln -sf /usr/share/zoneinfo/Europe/Athens /etc/localtime`
 
 ### Folder creation and mount
 1. `mount /dev/sda3 /mnt/funtoo`
@@ -49,16 +69,22 @@ last sector του δίνουμε την εντολή `+128M` και HEX code `E
 5. `cd /mnt/funtoo`
 6. `tar --numeric-owner -xpf to-arxeio`
 
- ### Chroot env setup
- 1. `mount --rbind /sys sys`
- 2. `mount --rbind /dev dev`
- 3. `mount --rbind /dev /mnt/funtoo/dev`
- 4. `mount --make-rslave /mnt/funtoo/dev`
- 5. `mount -t proc /proc /mnt/funtoo/proc`
- 6. `mount --rbind /sys /mnt/funtoo/sys`
- 7. `mount --rbind /tmp /mnt/funtoo/tmp`
- 9. `cp /etc/resolv.conf /mnt/funtoo/etc/`
- 10. `env -i HOME=/root TERM=$TERM /bin/chroot . bash -l`
- 11. `install -d /var/git -o 250 -g 250`
- 12. `ego sync`
- 13. 
+### System Update
+1. `emerge -auDN @world`
+
+### Bootloader
+1. `emerge -av grub`
+2. `grub-install --target=i386-pc --no-floppy /dev/sda`
+3. `ego boot update`
+4. `passwd myuser`
+
+### Setting users
+1. `passwd` κωδικός για τον root user
+2. `useradd -m myuser`
+3. `usermod -G wheel,audio,video,plugdev,portage myuser`
+
+### Exit Environment and Reboot
+1. `exit`
+2. `cd /mnt`
+3. `umount -lR funtoo`
+4. `reboot` κλείνουμε το vm και αφαιρούμε το livecd
