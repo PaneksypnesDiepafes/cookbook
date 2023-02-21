@@ -80,9 +80,10 @@
 ### Bootloader
 1. `emerge -av grub`
 2. `grub-install --target=i386-pc --no-floppy /dev/sda`
-3. `ego boot update`
+3. `ego boot update` προσπεράστε το warning της AMD 
 
 ### Network set up
+Ethernet
 1. `rc-update add dhcpcd default`
 2. `nano /etc/conf.d/hostname` και αλλάζουμε το hostname <br>
 Wi-Fi
