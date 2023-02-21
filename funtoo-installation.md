@@ -74,6 +74,8 @@
 
 ### System Update
 1. `emerge -auDN @world`
+Η
+2. `emerge -q -auDB @world` το `-q` κάνει suppress το output
 
 ### Bootloader
 1. `emerge -av grub`
