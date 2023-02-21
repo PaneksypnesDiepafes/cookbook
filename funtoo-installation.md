@@ -95,7 +95,8 @@ Wi-Fi
 ### Setting users
 1. `passwd` κωδικός για τον root user
 2. `useradd -m myuser`
-3. `usermod -G wheel,audio,video,plugdev,portage myuser`
+4. `usermod -G wheel,audio,video,plugdev,portage myuser`
+5. `passwd myuser`
 
 ### Exit Environment and Reboot
 1. `exit`
