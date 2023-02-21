@@ -56,6 +56,7 @@
 1. `cd /mnt/funtoo`
 2. `links http://build.funtoo.org`
 Επιλέγετε τα generic drivers τα οποία βρίσκονται στο `next/x86-64bit/generic_64/2023-01-31` και επιλέγετε όποια έκδοση θέλετε (για δική σας ευκολία επιλέξτε κάτι με γραφικό περιβάλλον)
+3. `q` για να βγουμε απο το `links`
 ### stage3 extract
 1.`tar --numeric-owner --xattrs --xattrs-include='*' -xpf stage3-latest.tar.xz` (stage3=το αρχείο που κατεβάσατε)
 
