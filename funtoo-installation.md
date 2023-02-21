@@ -73,7 +73,7 @@
 
 
 ### System Update
-1. `emerge -auDN @world`
+1. `emerge -auDN @world` <br>
 Η
 2. `emerge -q -auDB @world` το `-q` κάνει suppress το output
 
