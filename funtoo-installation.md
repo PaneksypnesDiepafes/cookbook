@@ -71,13 +71,6 @@
 2. `rm -f /etc/localtime`
 3. `ln -sf /usr/share/zoneinfo/Europe/Athens /etc/localtime`
 
-### Folder creation and mount
-1. `mount /dev/sda2 /mnt/funtoo`
-2. `mkdir /mnt/funtoo/boot`
-3. `mount /dev/sda1 /mnt/funtoo/boot`
-4. Αλλάζουμε θέση το αρχείο που καταβάσαμε την αρχή `mv to-onoma-tou-arxeiou .mnt/funtoo`
-5. `cd /mnt/funtoo`
-6. `tar --numeric-owner -xpf to-arxeio`
 
 ### System Update
 1. `emerge -auDN @world`
