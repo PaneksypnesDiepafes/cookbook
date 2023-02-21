@@ -85,7 +85,7 @@
 
 ### Network set up
 1. `rc-update add dhcpcd default`
-2. `nano /etc/conf.d/hostname` και αλλάζουμε το hostname
+2. `nano /etc/conf.d/hostname` και αλλάζουμε το hostname <br>
 Wi-Fi
 1. `emerge linux-firmware networkmanager`
 2. `rc-update add NetworkManager default`
