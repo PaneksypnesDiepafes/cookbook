@@ -81,7 +81,6 @@
 1. `emerge -av grub`
 2. `grub-install --target=i386-pc --no-floppy /dev/sda`
 3. `ego boot update`
-4. `passwd myuser`
 
 ### Network set up
 1. `rc-update add dhcpcd default`
