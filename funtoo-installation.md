@@ -1,26 +1,11 @@
 # Οδηγίες για την εγκατάσταση του λειτουργικού συστήματος [funtoo](https://www.funtoo.org/Welcome) σε Virtual Box
 
-# Ο οδηγός αυτός είναι συμπυκνωμένες οδηγίες παρμένες από το [official funtoo installation guide](https://www.funtoo.org/Install/Introduction) που βοήθησαν εμάς προσωπικά να εγκαταστήσουμε το λειτουργικό στο Virtual Box και δεν αποτελούν το μόνο τρόπο εγκατάστασης. Ενθαρρύνουμε όλους να προσπαθήσουν μόνοι τους να κάνουν την εγκατάσταση του λειτουργικού ώστε να δούνε τις διαφορές που έχει από λειτουργικά με systemD και σε περίπτωση αποτυχίας να δοκιμάσουν με τον δικό μας οδηγό. Have fun!!! 😃
+## Ο οδηγός αυτός είναι συμπυκνωμένες οδηγίες παρμένες από το [official funtoo installation guide](https://www.funtoo.org/Install/Introduction) που βοήθησαν εμάς προσωπικά να εγκαταστήσουμε το λειτουργικό στο Virtual Box και δεν αποτελούν το μόνο τρόπο εγκατάστασης. Ενθαρρύνουμε όλους να προσπαθήσουν μόνοι τους να κάνουν την εγκατάσταση του λειτουργικού ώστε να δούνε τις διαφορές που έχει από λειτουργικά με systemD και σε περίπτωση αποτυχίας να δοκιμάσουν με τον δικό μας οδηγό. Have fun!!! 😃
 
-|Table of Context|
+|Table of Contents|
 |----------------|
-|[Προαπαιτούμενα](##προαπαιτούμενα)|
-|[VirtualBox Set Up](##VirtualBox-Set-Up)|
-|[Funtoo Set Up](##Funtoo-Set-Up)|
-|-- [Προαπαιτούμενα](###Προαπαιτούμενα)|
-|-- [The Fun Part of Funtoo](###The-Fun-Part-of-Funtoo)|
-|-- [Disk Set Up](###Disk-Set-Up)|
-|-- [Date Set Up](###Date-Set-Up)|
-|-- [Stage3 Download](###Stage3-Download)|
-|-- [Chroot](###Chroot)|
-|-- [Download Portage Tree](###Download-Portage-Tree)|
-|-- [Config Files](###Config-files)|
-|-- [System Update](###System-Update)|
-|-- [Bootloader](###Bootloader)|
-|-- [Network Set Up](###Network-Set-Up)|
-|-- [Setting Users](###Setting-Users)|
-|-- [Exit Environment and Reboot](###Exit-Environment-and-Reboot)|
-|[Post Installation Configuration](###Post-Installation-Configuration)|
+| <ul> <li> [Προαπαιτούμενα](#προαπαιτούμενα)</li>  <li> [VirtualBox Set Up](#virtualbox-set-up)</li>  <li> [Funtoo Set Up](#funtoo-set-up) </li> <ul> <li>[Προαπαιτούμενα](#προαπαιτούμενα-1)</li><li>[The Fun Part of Funtoo](#the-fun-part-of-funtoo)</li><li>[Disk Set Up](#disk-set-up)</li><li>[Date Set Up](#date-set-up)</li><li>[Stage3 Download](#stage3-download)</li><li>[Chroot](#chroot)</li><li>[Download Portage Tree](#download-portage-tree)</li><li>[Config Files](#config-files)</li><li>[System Update](#system-update)</li><li>[Bootloader](#bootloader)</li><li>[Network Set Up](#network-set-up)</li><li>[Setting Users](#setting-users)</li><li>[Exit Environment and Reboot](#exit-environment-and-reboot)</li> </ul> <li>[Post Installation Configuration](#post-installation-configuration)</li> </ul> |
+
 
 ## Προαπαιτούμενα
 
@@ -32,7 +17,7 @@
 
 1. Επιλέγουμε τα κατάλληλα πεδία όπως φαίνεται στην παρακάτω εικόνα <br>
 ![setup-1](https://user-images.githubusercontent.com/77148351/219341204-71c9fdf7-356a-4068-a527-d99ae7ea34ba.png)
-2. Δίνουμε στη μηχανή τουλάχιστον δύο πυρήνες (ιδανικά 4) και τουλάχιστον 2GB RAM (ιδανικά 4GB λόγω του GUI) και 30GB αποθηκευτικό χώρο
+2. Δίνουμε στη μηχανή τουλάχιστον δύο πυρήνες (ιδανικά 4) και τουλάχιστον 2GB RAM (ιδανικά 4GB λόγω του GUI) και 30GB αποθηκευτικό χώρο. <br/>
 ![ramcpu-setup](https://user-images.githubusercontent.com/77148351/219863924-e205cd24-0b4c-4257-a448-240ca0111f43.png)
 
 
@@ -121,30 +106,31 @@ Wi-Fi
 ![storage](https://user-images.githubusercontent.com/77148351/220625668-b513b877-5100-4a39-9ea5-91a11079226d.png)
 
 ### Post Installation Configuration
-Σε αυτό το σημείο καλό είναι σε σεταρουμε τα sudo privilege του user μας.
-Για να συμβεί αυτό θα χρειαστεί να κατεβάσουμε και το sudo package.
+Σε αυτό το σημείο καλό είναι να σετάρουμε τα sudo privilege του user μας.
+Για να το καταφέρουμε αυτό θα χρειαστεί να κατεβάσουμε το sudo package.
 1. `su` και βάζουμε τον κωδικό του root user
 2. `emerge --ask app-admin/sudo`
 
-Αφού τελειώσει το download κάνουμε τα εξής βήματα.
-*Για να δώσουμε sudo privilege σε όλες τις εντολές για τον χρήστη μας κάνουμε τα εξής βήματα*
-1. `visudo` **_ΠΡΟΣΟΧΗ ΧΡΗΣΙΜΟΠΟΙΟΥΜΕ ΜΟΝΟ ΤΗΝ ΕΝΤΟΛΗ VISUDO ΚΑΤΑ ΤH ΔΙΑΡΚΕΙΑ ΤΟΥ EDIT ΤΟΥ SUDOERS ΑΡΧΕΙΟ ΟΠΟΙΟΔΗΠΟΤΕ ΑΛΛΟ COMMAND ΤΟΥ ΣΤΙΛ `nano  /etc/sudoers` ΔE ΘΑ ΚΑΝΕΙ ΣΩΣΤΟ ΦΟΡΜΑΤ ΤΟ ΑΡΧΕΙΟ_**
-2. Κάνουμε uncomment τη γραμμή `%wheel ALL=(ALL:ALL) ALL`  η συγκεκριμένη γραμμή δίνει sudo access σε όλα τα command που χρησιμοποιούνται από τους χρήστες του group Wheel
+## Granting Sudo Access
 
-*Για να δώσουμε sudo priviledge σε μεμονωμένα command κάνουμε τα εξής βήματα*
-1. `visudo` **_ΠΡΟΣΟΧΗ ΧΡΗΣΙΜΟΠΟΙΟΥΜΕ ΜΟΝΟ ΤΗΝ ΕΝΤΟΛΗ VISUDO ΚΑΤΑ ΤH ΔΙΑΡΚΕΙΑ ΤΟΥ EDIT ΤΟΥ SUDOERS ΑΡΧΕΙΟ ΟΠΟΙΟΔΗΠΟΤΕ ΑΛΛΟ COMMAND ΤΟΥ ΣΤΙΛ `nano  /etc/sudoers` ΔE ΘΑ ΚΑΝΕΙ ΣΩΣΤΟ ΦΟΡΜΑΤ ΤΟ ΑΡΧΕΙΟ_**
-2. Προσθέτουμε κάτω από τη γραμμή _User priviledge specification_ `myuser localhost = /usr/bin/emerge` για παράδειγμα `p19arti vboxfun = /usr/bin/emerge`
+### <li> Για να δώσουμε sudo privilege σε όλες τις εντολές για τον χρήστη μας κάνουμε τα εξής βήματα:</li> 
+1. `visudo` **ΠΡΟΣΟΧΗ** ΧΡΗΣΙΜΟΠΟΙΟΥΜΕ ΜΟΝΟ ΤΗΝ ΕΝΤΟΛΗ VISUDO ΚΑΤΑ ΤH ΔΙΑΡΚΕΙΑ ΤΟΥ EDIT ΤΟΥ SUDOERS ΑΡΧΕΙΟ. ΟΠΟΙΟΔΗΠΟΤΕ ΑΛΛΟ COMMAND ΤΟΥ ΣΤΥΛ `nano  /etc/sudoers` ΔE ΘΑ ΚΑΝΕΙ ΣΩΣΤΟ ΦΟΡΜΑΤ ΤΟ ΑΡΧΕΙΟ.
+2. Κάνουμε uncomment τη γραμμή `%wheel ALL=(ALL:ALL) ALL`  (η συγκεκριμένη γραμμή δίνει sudo access σε όλα τα command που χρησιμοποιούνται από τους χρήστες του group Wheel)
+
+### <li> Για να δώσουμε sudo privilege σε μεμονωμένα command κάνουμε τα εξής βήματα:</li> 
+1. `visudo` **ΠΡΟΣΟΧΗ** ΧΡΗΣΙΜΟΠΟΙΟΥΜΕ ΜΟΝΟ ΤΗΝ ΕΝΤΟΛΗ VISUDO ΚΑΤΑ ΤH ΔΙΑΡΚΕΙΑ ΤΟΥ EDIT ΤΟΥ SUDOERS ΑΡΧΕΙΟ ΟΠΟΙΟΔΗΠΟΤΕ ΑΛΛΟ COMMAND ΤΟΥ ΣΤYΛ `nano  /etc/sudoers` ΔE ΘΑ ΚΑΝΕΙ ΣΩΣΤΟ ΦΟΡΜΑΤ ΤΟ ΑΡΧΕΙΟ
+2. Προσθέτουμε κάτω από τη γραμμή _User privilege specification_ `myuser localhost = /usr/bin/emerge` (για παράδειγμα `p19arti vboxfun = /usr/bin/emerge`)
 Με αυτό τον τρόπο δίνουμε sudo access μόνο για το command emerge δηλαδή για να χρησιμοποιούμε το package manager των Funtoo.
-Σε περίπτωση που Θέλουμε να δώσουμε και άλλα access όπως για παράδειγμα για το git και να μπορούμε να κάνουμε `sudo git ` θα πρέπει να συμπληρωθεί στα command που δίνουμε access.
+
+Σε περίπτωση που θέλουμε να δώσουμε και άλλα access, όπως για παράδειγμα για το git ώστε να μπορούμε να κάνουμε `sudo git `, θα πρέπει να συμπληρωθεί στη γραμμή που δίνουμε privilege π.χ. `myuser localhost = /usr/bin/emerge, /usr/bin/git`
 
 Στη δικιά μας περίπτωση δώσαμε full access στον user μας διότι το έχουμε ξανακάνει και μπορούμε να καταλάβουμε πότε είναι προτιμότερο να χρησιμοποιείται η εντολή sudo και πότε όχι.
 
-Στη συνέχειά   `su myuser` για να επιστρέψουμε στον user μας και κάνουμε ένα τεστ κατεβάζοντας ένα πακέτο πχ το neofetch `emerge --ask app-misc/neofetch`.
+Στη συνέχειά `su myuser` για να επιστρέψουμε στον user μας και κάνουμε ένα τεστ κατεβάζοντας ένα πακέτο π.χ. το neofetch `emerge --ask app-misc/neofetch`.
 
-**_ΔΕΝ ΞΕΧΝΑΜΕ ΠΑΝΤΑ ΝΑ ΚΟΙΤΑΜΕ ΤΑ WIKI ΕΙΤΕ ΤΩΝ ΠΑΚΕΤΩΝ ΠΟΥ ΘΕΛΟΥΜΕ ΝΑ ΕΓΚΑΤΑΣΤΗΣΟΥΜΕ ΕΙΤΕ ΤΟ OFFICIAL WIKI ΤΟΥ FUNTOO/GENTOO ΓΙΑ ΝΑ ΜΑΘΑΙΝΟΥΜΕ ΤΙ ΚΑΝΕΙ Η ΚΑΘΕ ΕΝΤΟΛΗ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΜΑΙ ΚΑΙ ΝΑ ΜΗΝ ΠΗΓΑΙΝΟΥΜΕ ΣΤΑ ΤΥΦΛΑ. ΠΑΝΤΑ Η ΑΠΑΝΤΗΣΗ ΒΡΙΣΚΕΤΑΙ ΣΤΑ WIKI_**
+**ΔΕΝ ΞΕΧΝΑΜΕ ΠΑΝΤΑ ΝΑ ΚΟΙΤΑΜΕ ΤΑ WIKI ΕΙΤΕ ΤΩΝ ΠΑΚΕΤΩΝ ΠΟΥ ΘΕΛΟΥΜΕ ΝΑ ΕΓΚΑΤΑΣΤΗΣΟΥΜΕ ΕΙΤΕ ΤΟ OFFICIAL WIKI ΤΟΥ FUNTOO/GENTOO ΓΙΑ ΝΑ ΜΑΘΑΙΝΟΥΜΕ ΤΙ ΚΑΝΕΙ Η ΚΑΘΕ ΕΝΤΟΛΗ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΜΑΙ ΚΑΙ ΝΑ ΜΗΝ ΠΗΓΑΙΝΟΥΜΕ ΣΤΑ ΤΥΦΛΑ. ΠΑΝΤΑ Η ΑΠΑΝΤΗΣΗ ΒΡΙΣΚΕΤΑΙ ΣΤΑ WIKI**
 
 
-Feel free να προτείνετε διορθώσεις
-
+Feel free να προτείνετε διορθώσεις!
 
 Made with ❤️ by [PaneksypnesDiepafes](https://github.com/PaneksypnesDiepafes)
