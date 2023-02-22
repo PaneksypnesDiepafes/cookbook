@@ -73,9 +73,11 @@
 
 
 ### System Update
-`emerge -auDN @world` <br>
-Η
-`emerge -q -auDN @world` το `-q` κάνει suppress το output
+Υπάρχουν δυο τρόποι:
+
+1ος τρόπος: `emerge -auDN @world` <br>
+
+2ος τρόπος: `emerge -q -auDN @world` το `-q` κάνει suppress το output
 
 ### Bootloader
 1. `emerge -av grub`
