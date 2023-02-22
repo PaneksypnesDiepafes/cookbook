@@ -104,7 +104,31 @@ Wi-Fi
 3. `umount -lR funtoo`
 4. `reboot` κλείνουμε το vm και αφαιρούμε το livecd
 
+### Post Install Configuration
+Σε αυτό το σημείο καλό είναι σε σεταρουμε τα sudo privilege του user μας.
+Για να συμβεί αυτό θα χρειαστεί να κατεβάσουμε και το sudo package.
+1. `su` και βάζουμε τον κωδικό του root user
+2. `emerge --ask app-admin/sudo`
+
+Αφού τελειώσει το download κάνουμε τα εξής βήματα.
+*Για να δώσουμε sudo privilege σε όλες τις εντολές για τον χρήστη μας κάνουμε τα εξής βήματα*
+1. `visudo` **_ΠΡΟΣΟΧΗ ΧΡΗΣΙΜΟΠΟΙΟΥΜΕ ΜΟΝΟ ΤΗΝ ΕΝΤΟΛΗ VISUDO ΚΑΤΑ ΤH ΔΙΑΡΚΕΙΑ ΤΟΥ EDIT ΤΟΥ SUDOERS ΑΡΧΕΙΟ ΟΠΟΙΟΔΗΠΟΤΕ ΑΛΛΟ COMMAND ΤΟΥ ΣΤΙΛ `nano  /etc/sudoers` ΔE ΘΑ ΚΑΝΕΙ ΣΩΣΤΟ ΦΟΡΜΑΤ ΤΟ ΑΡΧΕΙΟ_**
+2. Κάνουμε uncomment τη γραμμή `%wheel ALL=(ALL:ALL) ALL`  η συγκεκριμένη γραμμή δίνει sudo access σε όλα τα command που χρησιμοποιούνται από τους χρήστες του group Wheel
+
+*Για να δώσουμε sudo priviledge σε μεμονωμένα command κάνουμε τα εξής βήματα*
+1. `visudo` **_ΠΡΟΣΟΧΗ ΧΡΗΣΙΜΟΠΟΙΟΥΜΕ ΜΟΝΟ ΤΗΝ ΕΝΤΟΛΗ VISUDO ΚΑΤΑ ΤH ΔΙΑΡΚΕΙΑ ΤΟΥ EDIT ΤΟΥ SUDOERS ΑΡΧΕΙΟ ΟΠΟΙΟΔΗΠΟΤΕ ΑΛΛΟ COMMAND ΤΟΥ ΣΤΙΛ `nano  /etc/sudoers` ΔE ΘΑ ΚΑΝΕΙ ΣΩΣΤΟ ΦΟΡΜΑΤ ΤΟ ΑΡΧΕΙΟ_**
+2. Προσθέτουμε κάτω από τη γραμμή _User priviledge specification_ `myuser localhost = /usr/bin/emerge` για παράδειγμα `p19arti vboxfun = /usr/bin/emerge`
+Με αυτό τον τρόπο δίνουμε sudo access μόνο για το command emerge δηλαδή για να χρησιμοποιούμε το package manager των Funtoo.
+Σε περίπτωση που Θέλουμε να δώσουμε και άλλα access όπως για παράδειγμα για το git και να μπορούμε να κάνουμε `sudo git ` θα πρέπει να συμπληρωθεί στα command που δίνουμε access.
+
+Στη δικιά μας περίπτωση δώσαμε full access στον user μας διότι το έχουμε ξανακάνει και μπορούμε να καταλάβουμε πότε είναι προτιμότερο να χρησιμοποιείται η εντολή sudo και πότε όχι.
+
+Στη συνέχειά   `su myuser` για να επιστρέψουμε στον user μας και κάνουμε ένα τεστ κατεβάζοντας ένα πακέτο πχ το neofetch `emerge --ask app-misc/neofetch`.
+
+**_ΔΕΝ ΞΕΧΝΑΜΕ ΠΑΝΤΑ ΝΑ ΚΟΙΤΑΜΕ ΤΑ WIKI ΕΙΤΕ ΤΩΝ ΠΑΚΕΤΩΝ ΠΟΥ ΘΕΛΟΥΜΕ ΝΑ ΕΓΚΑΤΑΣΤΗΣΟΥΜΕ ΕΙΤΕ ΤΟ OFFICIAL WIKI ΤΟΥ FUNTOO/GENTOO ΓΙΑ ΝΑ ΜΑΘΑΙΝΟΥΜΕ ΤΙ ΚΑΝΕΙ Η ΚΑΘΕ ΕΝΤΟΛΗ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΜΑΙ ΚΑΙ ΝΑ ΜΗΝ ΠΗΓΑΙΝΟΥΜΕ ΣΤΑ ΤΥΦΛΑ. ΠΑΝΤΑ Η ΑΠΑΝΤΗΣΗ ΒΡΙΣΚΕΤΑΙ ΣΤΑ WIKI_**
+
 
 Feel free να προτείνετε διορθώσεις
+
 
 Made with ❤️ by [PaneksypnesDiepafes](https://github.com/PaneksypnesDiepafes)
