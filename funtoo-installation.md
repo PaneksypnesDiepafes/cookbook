@@ -73,9 +73,9 @@
 
 
 ### System Update
-1. `emerge -auDN @world` <br>
+`emerge -auDN @world` <br>
 Η
-2. `emerge -q -auDB @world` το `-q` κάνει suppress το output
+`emerge -q -auDN @world` το `-q` κάνει suppress το output
 
 ### Bootloader
 1. `emerge -av grub`
@@ -102,7 +102,11 @@ Wi-Fi
 1. `exit`
 2. `cd /mnt`
 3. `umount -lR funtoo`
-4. `reboot` κλείνουμε το vm και αφαιρούμε το livecd
+4. `shutdown` για να επιστρέψουμε στη αρχική του livecd
+5.  Τερματίζουμε το vm μας
+6.  Από τις ρυθμίσεις του vm για το storage πρέπει να αφαιρέσουμε το livecd απο το "IDE Secondary Device" 
+
+![storage](https://user-images.githubusercontent.com/77148351/220625668-b513b877-5100-4a39-9ea5-91a11079226d.png)
 
 ### Post Install Configuration
 Σε αυτό το σημείο καλό είναι σε σεταρουμε τα sudo privilege του user μας.
