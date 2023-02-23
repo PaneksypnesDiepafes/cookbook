@@ -38,13 +38,17 @@
 ### Disk set up
 1. `lsblk` για να δούμε το layout των δίσκων
 2. `fdisk /dev/sda` και δίνουμε την εντολή `o` για να γίνει διαγραφή του partition
-3.  Ακολουθούμε τα βήματα από το [official guide](https://www.funtoo.org/Install/MBR_Partitioning) για το partitioning όμως δημιουργούμε 2 μόνο partitions αντί για 3. (Το swap partition είναι προαιρετικό)
-4. `mkfs.ext2 /dev/sda1`
-5. `mkfs.ext4 /dev/sda2` (αν έχουμε φτιάξει swap partition τότε είναι το /dev/sda3)
-6.  `mkdir -p /mnt/funtoo`
-7.  `mount /dev/sda2 /mnt/funtoo`
-8.  `mkdir /mnt/funtoo/boot`
-9.  `mount /dev/sda1 /mnt/funtoo/boot`
+3.  Δημιουργία disk partition boot με το `fdisk`:</br>
+![boot](https://user-images.githubusercontent.com/73399706/220938466-085afbde-001a-4ed1-b14f-531ae599630a.png)</br>
+4.  Δημιουργία disk partition Swap (προαιρετικό):</br>![swap](https://user-images.githubusercontent.com/73399706/220938923-a8c0ceb9-f71c-41e3-b787-d084e1a8aa19.png)
+5.  Δημιουργία disk partition Root:</br>![root](https://user-images.githubusercontent.com/73399706/220939508-77b397c8-e737-4398-8618-2fe2c67f5758.png)
+
+6. `mkfs.ext2 /dev/sda1`
+7. `mkfs.ext4 /dev/sda2` (αν έχουμε φτιάξει swap partition τότε είναι το /dev/sda3)
+8.  `mkdir -p /mnt/funtoo`
+9.  `mount /dev/sda2 /mnt/funtoo`
+10.  `mkdir /mnt/funtoo/boot`
+11.  `mount /dev/sda1 /mnt/funtoo/boot`
 
 ### Date set up
 1. `date` για να δούμε την ημερομηνία του συστήματος
