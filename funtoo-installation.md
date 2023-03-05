@@ -140,8 +140,9 @@ Wi-Fi
 Το μεγαλύτερο κομμάτι του απαιτούμενου χρόνου είναι διότι τα Gentoo λογισμικά κάνουν compile όλα τα απαιτούμενα πακέτα από την αρχή. Χρησιμοποιώντας το ccache, μπορούμε να το σεττάρουμε έτσι ώστε το σύστημα να κρατάει κάποια compiled πακέτα στην μνήμη cache, έτσι ώστε όταν μετά χρειάζονται ως dependency για κάποιο άλλο πακέτο, να μην ξαναγίνονται compile.
 
 1. Install ccache: `sudo emerge --ask dev-util/ccache`
-2. Δημιουργία config file: `sudo mkdir /var/cache/ccache/ && touch /var/cache/ccache/ccache.conf`
-3. Βάζουμε τις παρακάτω παραμέτρους μέσα στο config file:
+2. Δημιουργία directory: `sudo mkdir /var/cache/ccache/`
+3. Δημιουργία config file: `sudo touch /var/cache/ccache/ccache.conf`
+4. Βάζουμε τις παρακάτω παραμέτρους μέσα στο config file:
 
  ```
 max_size = 20.0G
