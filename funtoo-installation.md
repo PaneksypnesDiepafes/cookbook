@@ -4,7 +4,7 @@
 
 |Table of Contents|
 |----------------|
-| <ul> <li> [Προαπαιτούμενα](#προαπαιτούμενα)</li>  <li> [VirtualBox Set Up](#virtualbox-set-up)</li>  <li> [Funtoo Set Up](#funtoo-set-up) </li> <ul> <li>[Προαπαιτούμενα](#προαπαιτούμενα-1)</li><li>[The Fun Part of Funtoo](#the-fun-part-of-funtoo)</li><li>[Disk Set Up](#disk-set-up)</li><li>[Date Set Up](#date-set-up)</li><li>[Stage3 Download](#stage3-download)</li><li>[Chroot](#chroot)</li><li>[Download Portage Tree](#download-portage-tree)</li><li>[Config Files](#config-files)</li><li>[System Update](#system-update)</li><li>[Bootloader](#bootloader)</li><li>[Network Set Up](#network-set-up)</li><li>[Setting Users](#setting-users)</li><li>[Exit Environment and Reboot](#exit-environment-and-reboot)</li> </ul> <li>[Post Installation Configuration](#post-installation-configuration)</li> </ul> |
+| <ul> <li> [Προαπαιτούμενα](#προαπαιτούμενα)</li>  <li> [VirtualBox Set Up](#virtualbox-set-up)</li>  <li> [Funtoo Set Up](#funtoo-set-up) </li> <ul> <li>[Προαπαιτούμενα](#προαπαιτούμενα-1)</li><li>[The Fun Part of Funtoo](#the-fun-part-of-funtoo)</li><li>[Disk Set Up](#disk-set-up)</li><li>[Date Set Up](#date-set-up)</li><li>[Stage3 Download](#stage3-download)</li><li>[Chroot](#chroot)</li><li>[Download Portage Tree](#download-portage-tree)</li><li>[Config Files](#config-files)</li><li>[System Update](#system-update)</li><li>[Bootloader](#bootloader)</li><li>[Network Set Up](#network-set-up)</li><li>[Setting Users](#setting-users)</li><li>[Exit Environment and Reboot](#exit-environment-and-reboot)</li> </ul> <li>[Post Installation Configuration](#post-installation-configuration)</li> <ul><li>[Granting Sudo Access](#granting-sudo-access)</li><li>[Optimizing Compile Times](#optimizing-compile-times)</li></ul> </ul> |
 
 
 ## Προαπαιτούμενα
@@ -131,6 +131,45 @@ Wi-Fi
 Στη δικιά μας περίπτωση δώσαμε full access στον user μας διότι το έχουμε ξανακάνει και μπορούμε να καταλάβουμε πότε είναι προτιμότερο να χρησιμοποιείται η εντολή sudo και πότε όχι.
 
 Στη συνέχειά `su myuser` για να επιστρέψουμε στον user μας και κάνουμε ένα τεστ κατεβάζοντας ένα πακέτο π.χ. το neofetch `emerge --ask app-misc/neofetch`.
+
+## Optimizing Compile Times
+
+Κατά την διάρκεια του installation θα παρατηρήσατε ότι το portage παίρνει αρκετό χρόνο για να κάνει install πακέτα. Με τις παρακάτω αλλαγές ο χρόνος αυτός μπορεί να μειωθεί σε έναν βαθμό:
+
+### CCache
+Το μεγαλύτερο κομμάτι του απαιτούμενου χρόνου είναι διότι τα Gentoo λογισμικά κάνουν compile όλα τα απαιτούμενα πακέτα από την αρχή. Χρησιμοποιώντας το ccache, μπορούμε να το σεττάρουμε έτσι ώστε το σύστημα να κρατάει κάποια compiled πακέτα στην μνήμη cache, έτσι ώστε όταν μετά χρειάζονται ως dependency για κάποιο άλλο πακέτο, να μην ξαναγίνονται compile.
+
+1. Install ccache: `sudo emerge --ask dev-util/ccache`
+2. Δημιουργία config file: `sudo mkdir /var/cache/ccache/ && touch /var/cache/ccache/ccache.conf`
+3. Βάζουμε τις παρακάτω παραμέτρους μέσα στο config file:
+
+ ```
+max_size = 20.0G
+umask = 002
+hash_dir = false
+compiler_check = %compiler% -v
+cache_dir_levels = 3
+ ```
+
+### MakeOpts
+Εδώ θα κάνουμε configure το portage να χρησιμοποιεί παραπάνω πόρους έτσι ώστε τα compiles να γίνονται πιο γρήγορα.
+
+1. Ανοίγουμε το config file του portage: `/etc/portage/make.conf`
+2. Εισάγουμε παραμέτρους: `MAKEOPTS="-j# -l#"`
+
+Το j δηλώνει πόσα compiles να γίνονται allocate στη CPU, ενώ το l δηλώνει πόσες διεργασίες η CPU εκτελεί ταυτόχρονα. Προτείνεται το j να σεττάρεται ως το μισό από τους πυρήνες της CPU σας.
+
+3. Επιπλέον εισάγουμε τα παρακάτω έτσι ώστε το portage να χρησιμοποιεί το ccache:
+
+ ```
+ FEATURES="ccache"
+ CCACHE_DIR="/var/cache/ccache"
+ ```
+
+Αν όλα έγιναν σωστά, τότε το config file του portage θα πρέπει να μοιάζει κάπως έτσι:
+
+![portage_conf](https://user-images.githubusercontent.com/79596160/222971665-3cc57cc6-47a8-4732-b067-c003680e96df.png)
+
 
 **ΔΕΝ ΞΕΧΝΑΜΕ ΠΑΝΤΑ ΝΑ ΚΟΙΤΑΜΕ ΤΑ WIKI ΕΙΤΕ ΤΩΝ ΠΑΚΕΤΩΝ ΠΟΥ ΘΕΛΟΥΜΕ ΝΑ ΕΓΚΑΤΑΣΤΗΣΟΥΜΕ ΕΙΤΕ ΤΟ OFFICIAL WIKI ΤΟΥ FUNTOO/GENTOO ΓΙΑ ΝΑ ΜΑΘΑΙΝΟΥΜΕ ΤΙ ΚΑΝΕΙ Η ΚΑΘΕ ΕΝΤΟΛΗ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΜΑΙ ΚΑΙ ΝΑ ΜΗΝ ΠΗΓΑΙΝΟΥΜΕ ΣΤΑ ΤΥΦΛΑ. ΠΑΝΤΑ Η ΑΠΑΝΤΗΣΗ ΒΡΙΣΚΕΤΑΙ ΣΤΑ WIKI**
 
